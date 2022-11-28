@@ -10,7 +10,7 @@ public class Account {
 	private String accountNum;
 	private int balance;
 
-	
+
 	// ( 요구사항 7-1 ) 계좌는 입기능이 있다.
 	public void deposit(int amount) {
 
@@ -25,6 +25,7 @@ public class Account {
 		BillManager billManager = new BillManager(); 
 		billManager.recordBill(bill);
 	}
+
 	// ( 요구사항 7-2 ) 계좌는 출금 기능이 있다.
 	public void withdraw(int amount) {
 
@@ -39,13 +40,23 @@ public class Account {
 		else {
 			System.out.println("계좌의 잔고가 부족합니다.");
 		}
+
 	}
 	
 	// ( 요구사항 11 ) 계좌는 모든 거래 내역을 조회할 수 있다. 	
 	public void getAllBills() {
 		BillManager.getAllBills(accountNum);
 	}
-	
+
+
+	// Constructor
+	public Account(String ownerName, String accountNum){
+		this.ownerName = ownerName;
+		this.accountNum = accountNum;
+		this.balance = 0;
+		this.isAvailable = true;
+	}
+
 	// Getter
 	public String getOwnerName() {
 		return this.ownerName;

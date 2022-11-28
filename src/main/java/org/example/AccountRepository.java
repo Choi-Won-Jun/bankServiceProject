@@ -19,6 +19,20 @@ public class AccountRepository {
         accounts.add(account);
     }
 
+    // (요구사항 2) 계좌 수정하기 = 활성화 비활성화여부
+    public void updateAccountAvailability(String accountNum){
+        for( Account account : accounts ){
+            if(account.getAccountNum().equals(accountNum)) // 찾는 계좌면
+                if ( account.getAvailability() ) { // 활성화 되어있는 경우
+                    System.out.println("계좌가 활성화 상태입니다.");
+                    account.
+                }
+
+            System.out.println("");
+        }
+    }
+
+
     public void removeAccount(String accountNum) {
         int check_count = 0;
         if (accounts.size() != 0) {
