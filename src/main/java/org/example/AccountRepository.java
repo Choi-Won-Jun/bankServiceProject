@@ -19,6 +19,28 @@ public class AccountRepository {
         accounts.add(account);
     }
 
+    // ( 요구사항 2 ) 은행은 계좌를 관리(수정/삭제)한다. ( 수정은 거래 가불가 여부 )
+    // 거래 중지 계좌로 접속 할 경우 > 거래 내역만 조회 가능 > 이전 메뉴로 되돌아가기
+    public void accessAccount(String accountNum) {
+        for (Account account : accounts) {
+            if (accountNum.equals(account)) {
+                System.out.println("거래가 중지된 계좌입니다. \n 내역을 확인하시려면 1번 이전으로 돌아가려면 2번을 눌러주세요.");
+            } else {
+                System.out.println("계좌 번호를 올바르게 입력해주세요.");
+            }
+        }
+    }
+
+    public void stopAccount(String accountNum){
+        for (Account account : accounts) {
+            if (accountNum.equals(account)) {
+                System.out.println("거래가 중지된 계좌입니다. \n 내역을 확인하시려면 1번 이전으로 돌아가려면 2번을 눌러주세요.");
+            } else {
+                System.out.println("계좌 번호를 올바르게 입력해주세요.");
+            }
+        }
+    }
+
     public void removeAccount(String accountNum) {
         int check_count = 0;
         if (accounts.size() != 0) {
