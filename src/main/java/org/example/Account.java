@@ -11,7 +11,7 @@ public class Account {
 	private int balance;
 
 	
-	// ( 요구사항 7-1 ) 계좌는 입기능이 있다.
+	// ( 요구사항 7-1 ) 계좌는 입금기능이 있다.
 	public void deposit(int amount) {
 
 		this.balance += amount;
