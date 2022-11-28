@@ -1,3 +1,5 @@
+package org.example;
+
 import BillManager;
 import Bill;
 
@@ -59,7 +61,7 @@ public class Account {
 	public String getAccountNum() {
 		return this.accountNum;
 	}
-	public int getbalance() {
+	public int getBalance() {
 		return this.balance;
 	}
 	
