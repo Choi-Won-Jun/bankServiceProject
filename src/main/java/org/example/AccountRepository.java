@@ -20,7 +20,6 @@ public class AccountRepository {
         accounts.add(account);
     }
 
-    // (요구사항 2) 계좌 삭제하기 | 수정사항 구현 제외
 
     public void removeAccount(String accountNum) {
         if(CheckIfAccountExistsByAccountNum(accountNum)) {
