@@ -19,11 +19,11 @@ public class AccountRepository {
         accounts.add(account);
     }
 
-    public void removeAccount(String ownerName) {
+    public void removeAccount(String accountNum) {
         int check_count = 0;
         if (accounts.size() != 0) {
             for (Account account : accounts) {
-                if (ownerName.equals(account.getOwnerName())) ;
+                if (accountNum.equals(account.getAccountNum())) ;
                 accounts.remove(account);
                 check_count += 1;
                 break;
