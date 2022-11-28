@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankManagementService {    // UI
@@ -8,14 +9,20 @@ public class BankManagementService {    // UI
         showInitialMenu();
         int userInput = insertUserInput();
 
-        switch(userInput){
-            case 1:
-                customerLogin();
-            case 2:
-                bankClerkMenu();
+        while(true) {
+            switch (userInput) {
+                case 1: // 고객으로 로그인
+                    customerLogin();
+                    break;
+                case 2: // 은행으로 로그인
+                    bankClerkMenu();
+                    break;
+                case 3: // 프로그램 종료
+                    System.out.println("프로그램이 종료됩니다.");
+                    System.exit(0);
+                    break;
+            }
         }
-
-
     }
 
 
@@ -46,13 +53,119 @@ public class BankManagementService {    // UI
     public void customerLogin(){
         System.out.println("===============");
         System.out.printf("1. 성함을 입력해주세요 : ");
+
         Scanner s = new Scanner(System.in);
         String userName = s.nextLine();
 
         Bank bank = new Bank();
 
 
+        if(bank.CheckIfAccountExistByOwnerName(userName))
+            showAccountList(userName);  // 고객이 가진 계좌 보여주기
+        else {
+            System.out.println("등록된 사용자 이름이 아닙니다. 계좌를 생성하시겠습니까?");
+            System.out.println("1. Yes \n2. 종료하기");
+
+            int userInputNumber = Integer.parseInt(s.nextLine());
+
+            switch(userInputNumber){
+                case 1:
+                    createOwnerAccount(userName);
+                    showAccountList(userName);
+                    break;
+                case 2:
+                    System.out.println("프로그램을 종료합니다.");
+                    System.exit(0);
+                    break;
+            }
+        }
+
     }
+
+    public void showAccountList(String ownerName){
+
+        AccountRepository accountRepository = new AccountRepository();
+
+        System.out.println("<" + ownerName + "님의 계좌 목록>");
+        ArrayList<Account> ownerAccounts = accountRepository.customerFindAccounts(ownerName); // 마스킹 처리 후 출력까지 완료
+
+        System.out.println("계좌를 선택해주세요.");
+        // 번호를 입력받고
+        Scanner s = new Scanner(System.in);
+
+        int inputNumber = Integer.parseInt(s.nextLine());
+
+        // 그 계좌의 정보를 기반으로 다음 UI 보여줌.
+
+        Account account = ownerAccounts.get(inputNumber-1);
+        showBankingService(account);
+
+    }
+
+    public void createOwnerAccount(String ownerName){
+        Bank bank = new Bank();
+
+        bank.registerAccount(ownerName);
+        System.out.println("계좌가 성공적으로 생성되었습니다.\n");
+    }
+
+    public void showBankingService(Account account){
+
+        AccountRepository accountRepository = new AccountRepository();
+
+        // System.out.println("이거 : " + account.getAccountNum());
+        String[] linkedString = account.getAccountNum().split("-");
+
+        Scanner s = new Scanner(System.in);
+
+        while(true){
+            System.out.println("\n르탄 "
+                    + linkedString[0]+"-"+linkedString[1] + "-" + accountRepository.accountNoMasking(linkedString[2]) + "\n");
+            System.out.println("필요한 메뉴를 선택해주세요.");
+            System.out.println("1. 입금하기");
+            System.out.println("2. 출금하기");
+            System.out.println("3. 잔고 확인하기");
+            System.out.println("4. 거래내역 확인하기");
+            System.out.println("5. 종료하기");
+
+            int userInputNumber = Integer.parseInt(s.nextLine());
+
+                switch (userInputNumber) {
+                    case 1: // 입금하기
+                        System.out.println("입금하실 금액을 입력해주세요(원)");
+                        int inputAmount = Integer.parseInt(s.nextLine());
+                        accountRepository.depositToAccount(account.getAccountNum(), inputAmount);
+                        System.out.println("입금이 완료되었습니다.");
+                        break;
+                    case 2: // 출금하기
+                        System.out.println("출금하실 금액을 입력해주세요(원)");
+                        int outputAmount = Integer.parseInt(s.nextLine());
+                        boolean withdrawSuccess = accountRepository.withdrawFromAccount(account.getAccountNum(), outputAmount);
+                        if(withdrawSuccess){
+                            System.out.println("출금이 완료되었습니다.");
+                        }else{
+                            System.out.println("출금 가능한 금액이 부족합니다.");
+                        }
+                        break;
+                    case 3: // 잔액 확인하기
+                        System.out.println("현재 잔액 : " + account.getBalance());
+                        break;
+                    case 4: // 거래내역 확인하기
+                        break;
+                    case 5: // 종료하기
+                        System.out.println("프로그램을 종료합니다.");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("잘못된 입력입니다.");
+                        break;
+                }
+        }
+
+
+    }
+
+
 
     // 관리자 메뉴 = 은행원으로 로그인
     public void bankClerkMenu(){

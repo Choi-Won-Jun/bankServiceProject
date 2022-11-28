@@ -11,39 +11,40 @@ public class Account {
 	private int balance;
 
 
-	// ( ìš”êµ¬ì‚¬í•­ 7-1 ) ê³„ì¢ŒëŠ” ì…ê¸°ëŠ¥ì´ ìˆë‹¤.
+	
+	//
+	// ( ¿ä±¸»çÇ× 7-1 ) °èÁÂ´Â ÀÔ±İ±â´ÉÀÌ ÀÖ´Ù.
 	public void deposit(int amount) {
 
 		this.balance += amount;
 
-		System.out.println("ì…ê¸ˆì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		// °Å·¡³»¿ª »ı¼º
+		Bill bill = new Bill(this.accountNum, "ÀÔ±İ", amount);
 
-		// ê±°ë˜ë‚´ì—­ ìƒì„±
-		Bill bill = new Bill();
+		// ( ¿ä±¸»çÇ× 9 ) °èÁÂ¿¡¼­ ÀÜ°íÀÇ º¯È­°¡ ÀÖÀ» ¶§¸¶´Ù °Å·¡ ³»¿ª¿¡ ±â·ÏµÈ´Ù.
+		BillManager.recordBill(bill);
 
-		// ( ìš”êµ¬ì‚¬í•­ 9 ) ê³„ì¢Œì—ì„œ ì”ê³ ì˜ ë³€í™”ê°€ ìˆì„ ë•Œë§ˆë‹¤ ê±°ë˜ ë‚´ì—­ì— ê¸°ë¡ëœë‹¤.
-		BillManager billManager = new BillManager(); 
-		billManager.recordBill(bill);
 	}
 
-	// ( ìš”êµ¬ì‚¬í•­ 7-2 ) ê³„ì¢ŒëŠ” ì¶œê¸ˆ ê¸°ëŠ¥ì´ ìˆë‹¤.
+	// ( ¿ä±¸»çÇ× 7-2 ) °èÁÂ´Â Ãâ±İ ±â´ÉÀÌ ÀÖ´Ù. ( Ãâ±İ¾×ÀÌ °èÁÂ¿¡ µé¾îÀÖ´Â ±İ¾×º¸´Ù ÀÛÀ» ¶§ )
 	public void withdraw(int amount) {
 
 		if (amount <= balance) {
 			this.balance -= amount;
 
-			Bill bill = new Bill();
+			Bill bill = new Bill(this.accountNum, "Ãâ±İ", amount);
 
-			// ( ìš”êµ¬ì‚¬í•­ 9 ) ê³„ì¢Œì—ì„œ ì”ê³ ì˜ ë³€í™”ê°€ ìˆì„ ë•Œë§ˆë‹¤ ê±°ë˜ ë‚´ì—­ì— ê¸°ë¡ëœë‹¤.
+			// ( ¿ä±¸»çÇ× 9 ) °èÁÂ¿¡¼­ ÀÜ°íÀÇ º¯È­°¡ ÀÖÀ» ¶§¸¶´Ù °Å·¡ ³»¿ª¿¡ ±â·ÏµÈ´Ù.
 			BillManager.recordBill(bill);
 		}
 		else {
-			System.out.println("ê³„ì¢Œì˜ ì”ê³ ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.");
+			System.out.println("°èÁÂÀÇ ÀÜ°í°¡ ºÎÁ·ÇÕ´Ï´Ù."); // ¿©±â¼­ ÀÎÄÚµù ¹®Á¦ »ı±æ ¼ö ÀÖÀ½! (*)
 		}
-
 	}
+
+	// (¿ä±¸»çÇ× 8)
 	
-	// ( ìš”êµ¬ì‚¬í•­ 11 ) ê³„ì¢ŒëŠ” ëª¨ë“  ê±°ë˜ ë‚´ì—­ì„ ì¡°íšŒí•  ìˆ˜ ìˆë‹¤. 	
+	// ( ¿ä±¸»çÇ× 11 ) °èÁÂ´Â ¸ğµç °Å·¡ ³»¿ªÀ» Á¶È¸ÇÒ ¼ö ÀÖ´Ù. 	
 	public void getAllBills() {
 		BillManager.getAllBills(accountNum);
 	}
@@ -54,7 +55,6 @@ public class Account {
 		this.ownerName = ownerName;
 		this.accountNum = accountNum;
 		this.balance = 0;
-		this.isAvailable = true;
 	}
 
 	// Getter
@@ -64,9 +64,7 @@ public class Account {
 	public String getAccountNum() {
 		return this.accountNum;
 	}
-	public int getBalance() {
-		return this.balance;
-	}
+	public int getBalance() { return this.balance; }
 	
 	
 	

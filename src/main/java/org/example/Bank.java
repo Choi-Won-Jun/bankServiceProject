@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Bank {
@@ -8,22 +9,22 @@ public class Bank {
 
     Bank() {
         accountRepository = new AccountRepository();
-        bankName = "¸£Åº";   // ¿ì¸® ¼¼°è¿¡¼­´Â ¸£ÅºÀºÇà¸¸ ÀÖ½À´Ï´Ù.
+        bankName = "ë¥´íƒ„";   // ìš°ë¦¬ ì„¸ê³„ì—ì„œëŠ” ë¥´íƒ„ì€í–‰ë§Œ ìˆìŠµë‹ˆë‹¤.
     }
 
-    // ( ¿ä±¸»çÇ× 1 ) ÀºÇàÀº °èÁÂ¸¦ µî·ÏÇÑ´Ù ( ´Ü, °èÁÂ¹øÈ£´Â Á¤±Ô Ç¥Çö½ÄÀ¸·Î Á¦ÇÑ )
+    // ( ìš”êµ¬ì‚¬í•­ 1 ) ì€í–‰ì€ ê³„ì¢Œë¥¼ ë“±ë¡í•œë‹¤ ( ë‹¨, ê³„ì¢Œë²ˆí˜¸ëŠ” ì •ê·œ í‘œí˜„ì‹ìœ¼ë¡œ ì œí•œ )
     public void registerAccount(String ownerName){
-        // 1. °èÁÂ¹øÈ£ ¸¸µå´Â ·ÎÁ÷
+        // 1. ê³„ì¢Œë²ˆí˜¸ ë§Œë“œëŠ” ë¡œì§
         String accountNum = createAccountNum();
 
         accountRepository.registerAccount(ownerName, accountNum);
     }
 
 
-    //°èÁÂ¹øÈ£ »ı¼º½Ã ¾ÕÀÚ¸® 4ÀÚ¸® ÀºÇà °íÀ¯°ª + Áß°£ 4ÀÚ¸®´Â ÀÏÁ¤ÇÏ°Ô Áõ°¡ +µŞ5ÀÚ¸®´Â ³­¼ö·Î ±¸¼º
+    //ê³„ì¢Œë²ˆí˜¸ ìƒì„±ì‹œ ì•ìë¦¬ 4ìë¦¬ ì€í–‰ ê³ ìœ ê°’ + ì¤‘ê°„ 4ìë¦¬ëŠ” ì¼ì •í•˜ê²Œ ì¦ê°€ +ë’·5ìë¦¬ëŠ” ë‚œìˆ˜ë¡œ êµ¬ì„±
     static int counter = 1;
     private String createAccountNum(){
-        /* °èÁÂ¹øÈ£ »ı¼º ·ÎÁ÷ = Á¤±Ô Ç¥Çö½Ä */
+        /* ê³„ì¢Œë²ˆí˜¸ ìƒì„± ë¡œì§ = ì •ê·œ í‘œí˜„ì‹ */
         Random random = new Random();
         int createNum = 0;
         String ranNum = "";
@@ -42,12 +43,36 @@ public class Bank {
     }
 
 
-    // ( ¿ä±¸»çÇ× 2 ) ÀºÇàÀº °èÁÂ¸¦ °ü¸®(»èÁ¦)ÇÑ´Ù.
+    // ( ìš”êµ¬ì‚¬í•­ 2 ) ì€í–‰ì€ ê³„ì¢Œë¥¼ ê´€ë¦¬(ì‚­ì œ)í•œë‹¤.
+    public void deleteAccount(String accountNum){
+        accountRepository.removeAccount(accountNum);
+    }
 
+    // ì…ê¸ˆ, ì¶œê¸ˆí•˜ëŠ” ê¸°ëŠ¥.
 
-    // ÀÔ±İ, Ãâ±İÇÏ´Â ±â´É.
+    // ê³„ì¢Œë¥¼ ì‚­ì œí•˜ëŠ” ê²½ìš°
+    public void removeAccount(String accountNum){
+        accountRepository.removeAccount(accountNum);
+    }
 
-    // °èÁÂ¸¦ »èÁ¦ÇÏ´Â °æ¿ì
+    // ìš”êµ¬ì‚¬í•­ 3. ì€í–‰ì€ ê³„ì¢Œë²ˆí˜¸ë¡œ ê³„ì¢Œë¥¼ ì°¾ì„ ìˆ˜ ìˆë‹¤.
+    public void findAccountByAccountNum(String accountNum){
+        accountRepository.findAccountByAccountNum(accountNum);
+    }
+
+    // ìš”êµ¬ì‚¬í•­ 4. ì€í–‰ì€ ê³„ì¢Œì˜ ì†Œìœ ëª…ìœ¼ë¡œ ê³„ì¢Œë¥¼ ì°¾ì„ ìˆ˜ ìˆë‹¤.
+    public ArrayList<Account> findAccountByOwnerName(String ownerName){
+        return accountRepository.findAccountByOwnerName(ownerName);
+    }
+
+    // ìš”êµ¬ì‚¬í•­ 5. ì€í–‰ì€ ëª¨ë“  ê³„ì¢Œì˜ ëª©ë¡ì„ ì¡°íšŒí•  ìˆ˜ ìˆë‹¤.
+    public void findAllAccounts(){
+        accountRepository.findAllAccounts();
+    }
+
+    public boolean CheckIfAccountExistByOwnerName(String ownerName){
+        return accountRepository.CheckIfAccountExistByOwnerName(ownerName);
+    }
 
 
 }
