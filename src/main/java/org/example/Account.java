@@ -59,7 +59,7 @@ public class Account {
 	public String getAccountNum() {
 		return this.accountNum;
 	}
-	public int getbalance() {
+	public int getBalance() {
 		return this.balance;
 	}
 	
