@@ -30,6 +30,7 @@ public class Account {
 
 		if (amount <= balance) {
 			this.balance -= amount;
+			System.out.println("출금이 완료되었습니다.");
 
 			Bill bill = new Bill();
 
