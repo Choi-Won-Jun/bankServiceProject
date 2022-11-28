@@ -7,6 +7,8 @@ public class Bank {
     private AccountRepository accountRepository;
     private String bankName;
 
+    static String adminPassword = "8016";   // 은행 관리자 비밀번호
+
     Bank() {
         accountRepository = new AccountRepository();
         bankName = "르탄";   // 우리 세계에서는 르탄은행만 있습니다.
@@ -44,11 +46,7 @@ public class Bank {
 
 
     // ( 요구사항 2 ) 은행은 계좌를 관리(삭제)한다.
-    public void deleteAccount(String accountNum){
-        accountRepository.removeAccount(accountNum);
-    }
 
-    // 입금, 출금하는 기능.
 
     // 계좌를 삭제하는 경우
     public void removeAccount(String accountNum){

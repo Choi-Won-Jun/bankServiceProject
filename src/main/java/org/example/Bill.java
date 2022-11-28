@@ -6,31 +6,31 @@ import java.time.format.DateTimeFormatter;
 
 public class Bill {
 
-    // ( ¿ä±¸»çÇ× 10 ) °èÁÂÀÇ °Å·¡ ³»¿ªÀº °Å·¡ ÀÏÀÚ, °Å·¡ ½Ã°£, °èÁÂ¹øÈ£, ÀÔ±İ/Ãâ±İ ¿©ºÎ, °Å·¡ ±İ¾×, ÀºÇà ¸íÀ¸·Î ±¸¼ºµÈ´Ù.
-    private String dealDate;   // °Å·¡ ÀÏÀÚ <- ½Ã½ºÅÛ¿¡¼­ ÇÏ¹È µÊ ( ÆÄ¶ó¹ÌÅÍ·Î ¹ŞÀ»ÇÊ¿ä x )
-    private String dealTime;   // °Å·¡ ½Ã°£ <- ½Ã½ºÅÛ¿¡¼­ ÇÏ¹È µÊ ( ÆÄ¶ó¹ÌÅÍ·Î ¹ŞÀ»ÇÊ¿ä x )
-    private String accountNum; // °èÁÂ ¹øÈ£ <- Account ÀÇ deposit / withdraw¿¡¼­ ³Ñ°ÜÁà¾ßÇÔ. ¸Ş½ÃÁö·Î
-    private String depositOrWithdraw;  // ÀÔ±İ/Ãâ±İ ¿©ºÎ <- deposit / withdraw¿¡¼­ ¹ŞÀ½.
-    private int dealAmount;    // °Å·¡ ±İ¾× <- AccountÀÇ deposit/withdraw¿¡¼­ ³Ñ°ÜÁÜ
-    private String bankName;   // ÀºÇà ÀÌ¸§ : ¸£Åº ÀºÇàÀ¸·Î °íÁ¤
+    // ( ìš”êµ¬ì‚¬í•­ 10 ) ê³„ì¢Œì˜ ê±°ë˜ ë‚´ì—­ì€ ê±°ë˜ ì¼ì, ê±°ë˜ ì‹œê°„, ê³„ì¢Œë²ˆí˜¸, ì…ê¸ˆ/ì¶œê¸ˆ ì—¬ë¶€, ê±°ë˜ ê¸ˆì•¡, ì€í–‰ ëª…ìœ¼ë¡œ êµ¬ì„±ëœë‹¤.
+    private String dealDate;   // ê±°ë˜ ì¼ì <- ì‹œìŠ¤í…œì—ì„œ í•˜ë¯„ ë¨ ( íŒŒë¼ë¯¸í„°ë¡œ ë°›ì„í•„ìš” x )
+    private String dealTime;   // ê±°ë˜ ì‹œê°„ <- ì‹œìŠ¤í…œì—ì„œ í•˜ë¯„ ë¨ ( íŒŒë¼ë¯¸í„°ë¡œ ë°›ì„í•„ìš” x )
+    private String accountNum; // ê³„ì¢Œ ë²ˆí˜¸ <- Account ì˜ deposit / withdrawì—ì„œ ë„˜ê²¨ì¤˜ì•¼í•¨. ë©”ì‹œì§€ë¡œ
+    private String depositOrWithdraw;  // ì…ê¸ˆ/ì¶œê¸ˆ ì—¬ë¶€ <- deposit / withdrawì—ì„œ ë°›ìŒ.
+    private int dealAmount;    // ê±°ë˜ ê¸ˆì•¡ <- Accountì˜ deposit/withdrawì—ì„œ ë„˜ê²¨ì¤Œ
+    private String bankName;   // ì€í–‰ ì´ë¦„ : ë¥´íƒ„ ì€í–‰ìœ¼ë¡œ ê³ ì •
 
 
     // Constructor
     Bill(String accountNum, String depositOrWithdraw, int dealAmount ){
         this.accountNum = accountNum;
-        this.depositOrWithdraw = depositOrWithdraw; // "ÀÔ±İ", "Ãâ±İ"¸¸ °¡´É.
+        this.depositOrWithdraw = depositOrWithdraw; // "ì…ê¸ˆ", "ì¶œê¸ˆ"ë§Œ ê°€ëŠ¥.
         this.dealAmount = dealAmount;
-        // dealDate ÃÊ±âÈ­ ·ÎÁ÷ ( ÇöÀç ½Ã°£ ¸Ş¸ğÀå ¼­ºñ½º¿¡¼­ LocalDate »ç¿ëÇÑ°ÅÃ³·³ )
-        // ÇöÀç ³¯Â¥ ±¸ÇÏ±â (½Ã½ºÅÛ ½Ã°è, ½Ã½ºÅÛ Å¸ÀÓÁ¸)
+        // dealDate ì´ˆê¸°í™” ë¡œì§ ( í˜„ì¬ ì‹œê°„ ë©”ëª¨ì¥ ì„œë¹„ìŠ¤ì—ì„œ LocalDate ì‚¬ìš©í•œê±°ì²˜ëŸ¼ )
+        // í˜„ì¬ ë‚ ì§œ êµ¬í•˜ê¸° (ì‹œìŠ¤í…œ ì‹œê³„, ì‹œìŠ¤í…œ íƒ€ì„ì¡´)
         LocalDate nowMonth = LocalDate.now();
-        DateTimeFormatter formatterMonth = DateTimeFormatter.ofPattern("yyyy/MM/dd");//Æ÷¸ä
-        this.dealDate = nowMonth.format(formatterMonth); // ÀúÀå
-        // dealTime ÃÊ±âÈ­ ·ÎÁ÷
-        // ÇöÀç ½Ã°£
+        DateTimeFormatter formatterMonth = DateTimeFormatter.ofPattern("yyyy/MM/dd");//í¬ë©§
+        this.dealDate = nowMonth.format(formatterMonth); // ì €ì¥
+        // dealTime ì´ˆê¸°í™” ë¡œì§
+        // í˜„ì¬ ì‹œê°„
         LocalTime nowTime = LocalTime.now();
         DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
         this.dealTime= nowTime.format(formatterTime);
-        this.bankName = "¸£Åº";  // ¿ì¸® ¼¼°è¿¡¼­´Â ¸£Åº ÀºÇà¸¸ ÀÖ½À´Ï´Ù.
+        this.bankName = "ë¥´íƒ„";  // ìš°ë¦¬ ì„¸ê³„ì—ì„œëŠ” ë¥´íƒ„ ì€í–‰ë§Œ ìˆìŠµë‹ˆë‹¤.
     }
 
 

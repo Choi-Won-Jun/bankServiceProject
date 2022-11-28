@@ -26,7 +26,6 @@ public class AccountRepository {
             for (Account account : accounts) {
                 if (accountNum.equals(account.getAccountNum())) {
                     accounts.remove(account);
-                    System.out.println("해당 계좌를 삭제했습니다.");
                     break;
                 }
             }
@@ -89,9 +88,8 @@ public class AccountRepository {
         if(CheckIfAccountExistsByAccountNum(accountNum)) {
             for (Account account : accounts) {
                 if (accountNum.equals(account.getAccountNum())) {
-                    System.out.println("이름 : " + account.getOwnerName()
-                            + "\n 계좌번호 : " + account.getAccountNum()
-                            + "\n 잔 액 : " + account.getBalance());
+                    System.out.println("르탄 " + account.getAccountNum() + " " + account.getOwnerName());
+                    break;
                 }
             }
         }
@@ -105,23 +103,13 @@ public class AccountRepository {
 
         ArrayList<Account> ownerAccounts = new ArrayList<>();
 
-        int check_count = 0;
         if (accounts.size() != 0) {
             for (Account account : accounts) {
-                if (ownerName.equals(account.getOwnerName())) {
-                    check_count += 1;
+                if (ownerName.equals(account.getOwnerName()))
                     ownerAccounts.add(account);
-                    System.out.println("이름 : " + account.getOwnerName()
-                            + "\n 계좌번호 : " + account.getAccountNum()
-                            + "\n 잔 액" + account.getBalance()
-                            + "---------------------------------------------");
-                }
-            }
-            if (check_count == 0) {
-                System.out.println("등록된 계좌가 존재하지 않습니다.");
             }
         } else {
-            System.out.println("등록된 계좌가 존재하지 않습니다.");
+            System.out.println("은행에 등록된 계좌가 존재하지 않습니다.");
         }
         return ownerAccounts;
     }
@@ -139,11 +127,10 @@ public class AccountRepository {
     // ( 요구사항 5 ) 은행은 모든 계좌의 목록을 조회할 수 있다.
     public void findAllAccounts() {
         if (accounts.size() != 0) {
+            int accountCounter = 0;
             for (Account account : AccountRepository.accounts) {
-                System.out.println("이름 : " + account.getOwnerName()
-                        + "\n 계좌번호 : " + account.getAccountNum()
-                        + "\n 잔 액" + account.getBalance()
-                        + "---------------------------------------------");  //잔액을 표시해야하는지는 의문
+                accountCounter += 1;
+                System.out.println(accountCounter + ". 르탄 " + account.getAccountNum() + " " + account.getOwnerName());
             }
         } else {
             System.out.println("등록된 계좌가 존재하지 않습니다.");
@@ -165,9 +152,9 @@ public class AccountRepository {
                 accountCounter += 1;
 
                 String[] linkedString = account.getAccountNum().split("-");
-                System.out.println( accountCounter + " 르탄 "
+                System.out.println( accountCounter + ". 르탄 "
                             + linkedString[0]+"-"+linkedString[1] + "-" + accountNoMasking(linkedString[2])
-                            + "\n---------------------------------------------");
+                            + "\n");
             }
         }
         return ownerAccounts;

@@ -13,38 +13,38 @@ public class Account {
 
 	
 	//
-	// ( ¿ä±¸»çÇ× 7-1 ) °èÁÂ´Â ÀÔ±İ±â´ÉÀÌ ÀÖ´Ù.
+	// ( ìš”êµ¬ì‚¬í•­ 7-1 ) ê³„ì¢ŒëŠ” ì…ê¸ˆê¸°ëŠ¥ì´ ìˆë‹¤.
 	public void deposit(int amount) {
 
 		this.balance += amount;
 
-		// °Å·¡³»¿ª »ı¼º
-		Bill bill = new Bill(this.accountNum, "ÀÔ±İ", amount);
+		// ê±°ë˜ë‚´ì—­ ìƒì„±
+		Bill bill = new Bill(this.accountNum, "ì…ê¸ˆ", amount);
 
-		// ( ¿ä±¸»çÇ× 9 ) °èÁÂ¿¡¼­ ÀÜ°íÀÇ º¯È­°¡ ÀÖÀ» ¶§¸¶´Ù °Å·¡ ³»¿ª¿¡ ±â·ÏµÈ´Ù.
+		// ( ìš”êµ¬ì‚¬í•­ 9 ) ê³„ì¢Œì—ì„œ ì”ê³ ì˜ ë³€í™”ê°€ ìˆì„ ë•Œë§ˆë‹¤ ê±°ë˜ ë‚´ì—­ì— ê¸°ë¡ëœë‹¤.
 		BillManager.recordBill(bill);
 
 	}
 
-	// ( ¿ä±¸»çÇ× 7-2 ) °èÁÂ´Â Ãâ±İ ±â´ÉÀÌ ÀÖ´Ù. ( Ãâ±İ¾×ÀÌ °èÁÂ¿¡ µé¾îÀÖ´Â ±İ¾×º¸´Ù ÀÛÀ» ¶§ )
+	// ( ìš”êµ¬ì‚¬í•­ 7-2 ) ê³„ì¢ŒëŠ” ì¶œê¸ˆ ê¸°ëŠ¥ì´ ìˆë‹¤. ( ì¶œê¸ˆì•¡ì´ ê³„ì¢Œì— ë“¤ì–´ìˆëŠ” ê¸ˆì•¡ë³´ë‹¤ ì‘ì„ ë•Œ )
 	public void withdraw(int amount) {
 
 		if (amount <= balance) {
 			this.balance -= amount;
 
-			Bill bill = new Bill(this.accountNum, "Ãâ±İ", amount);
+			Bill bill = new Bill(this.accountNum, "ì¶œê¸ˆ", amount);
 
-			// ( ¿ä±¸»çÇ× 9 ) °èÁÂ¿¡¼­ ÀÜ°íÀÇ º¯È­°¡ ÀÖÀ» ¶§¸¶´Ù °Å·¡ ³»¿ª¿¡ ±â·ÏµÈ´Ù.
+			// ( ìš”êµ¬ì‚¬í•­ 9 ) ê³„ì¢Œì—ì„œ ì”ê³ ì˜ ë³€í™”ê°€ ìˆì„ ë•Œë§ˆë‹¤ ê±°ë˜ ë‚´ì—­ì— ê¸°ë¡ëœë‹¤.
 			BillManager.recordBill(bill);
 		}
 		else {
-			System.out.println("°èÁÂÀÇ ÀÜ°í°¡ ºÎÁ·ÇÕ´Ï´Ù."); // ¿©±â¼­ ÀÎÄÚµù ¹®Á¦ »ı±æ ¼ö ÀÖÀ½! (*)
+			System.out.println("ê³„ì¢Œì˜ ì”ê³ ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤."); // ì—¬ê¸°ì„œ ì¸ì½”ë”© ë¬¸ì œ ìƒê¸¸ ìˆ˜ ìˆìŒ! (*)
 		}
 	}
 
-	// (¿ä±¸»çÇ× 8)
+	// (ìš”êµ¬ì‚¬í•­ 8)
 	
-	// ( ¿ä±¸»çÇ× 11 ) °èÁÂ´Â ¸ğµç °Å·¡ ³»¿ªÀ» Á¶È¸ÇÒ ¼ö ÀÖ´Ù. 	
+	// ( ìš”êµ¬ì‚¬í•­ 11 ) ê³„ì¢ŒëŠ” ëª¨ë“  ê±°ë˜ ë‚´ì—­ì„ ì¡°íšŒí•  ìˆ˜ ìˆë‹¤. 	
 	public void getAllBills() {
 		BillManager.getAllBills(accountNum);
 	}
@@ -65,9 +65,7 @@ public class Account {
 		return this.accountNum;
 	}
 	public int getBalance() { return this.balance; }
-	
-	
-	
+
 }
 
 

@@ -10,8 +10,14 @@ public class BillManager {
         for ( Bill bill : bills ) {
             if(bill.getAccountNum().equals(accountNum) )
             {
-                System.out.println(String.format("ÀºÇà : %s, °èÁÂ¹øÈ£ : %s, ÀÔ/Ãâ±İ ¿©ºÎ : %s, °Å·¡ ±İ¾× : £Ü%,d, °Å·¡ÀÏÀÚ : %s, °Å·¡ ½Ã°£  : %s"  ,
-                        bill.getBankName(),bill.getAccountNum(),bill.getDepositOrWithdraw(),bill.getDealAmount(),bill.getDealDate(),bill.getDealTime()));
+                AccountRepository accountRepository = new AccountRepository();
+
+                String[] linkedString = accountNum.split("-");
+
+                String AccountNumMasking = linkedString[0]+"-"+linkedString[1] + "-" + accountRepository.accountNoMasking(linkedString[2]);
+
+                System.out.println(String.format("ì€í–‰ : %s, ê³„ì¢Œë²ˆí˜¸ : %s, ì…/ì¶œê¸ˆ ì—¬ë¶€ : %s, ê±°ë˜ ê¸ˆì•¡ : ï¿¦%,d, ê±°ë˜ì¼ì : %s, ê±°ë˜ ì‹œê°„  : %s"  ,
+                        bill.getBankName(),AccountNumMasking,bill.getDepositOrWithdraw(),bill.getDealAmount(),bill.getDealDate(),bill.getDealTime()));
             }
         }
     }
