@@ -150,7 +150,7 @@ public class BankManagementService {    // UI
                     }
                     break;
                 case 3: // 잔액 확인하기
-                    System.out.println("현재 잔액 : " + account.getBalance());
+                    System.out.println(String.format("현재 잔액 : ￦%,d", account.getBalance()));
                     break;
                 case 4: // 거래내역 확인하기
                     System.out.println("<거래내역>\n");
@@ -291,6 +291,5 @@ public class BankManagementService {    // UI
         }
     }
 }
-
 
 
