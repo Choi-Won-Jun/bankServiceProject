@@ -43,7 +43,7 @@ public class Bank {
         String accountNum = onlyBankNum+"-"+countAccountNum+"-"+randomNum;
         return accountNum;
     }
-
+      //이거 내가 건드린건데 바뀌나 by진재혁
 
     // ( 요구사항 2 ) 은행은 계좌를 관리(삭제)한다.
 
